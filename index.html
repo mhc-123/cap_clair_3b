@@ -1,0 +1,672 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Cap Clair — Semaine 3 — Rangement intérieur</title>
+  <meta name="description" content="Exercice de rangement intérieur (privé) — Cap Clair Semaine 3" />
+
+  <style>
+    :root{
+      --vert:#A8C1A1;
+      --bleu-clair:#B8CBD0;
+      --bleu-nuit:#344D59;
+      --beige:#FFFAF3;
+      --azur-grise:#9BB0B8;
+      --terracotta:#D49A89;
+      --marron:#815133;
+
+      --bg: var(--beige);
+      --text: var(--bleu-nuit);
+      --card: #ffffff;
+      --border: rgba(52,77,89,.16);
+      --shadow: 0 10px 30px rgba(52,77,89,.10);
+      --radius: 18px;
+    }
+
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial;
+      background:
+        radial-gradient(1200px 600px at 10% 0%, rgba(184,203,208,.35), transparent 55%),
+        radial-gradient(900px 500px at 100% 20%, rgba(168,193,161,.35), transparent 60%),
+        var(--bg);
+      color: var(--text);
+      line-height:1.4;
+    }
+
+    .wrap{
+      max-width: 1040px;
+      margin: 28px auto;
+      padding: 0 16px 60px;
+    }
+
+    header{
+      display:flex;
+      justify-content:space-between;
+      align-items:flex-start;
+      gap: 14px;
+      flex-wrap:wrap;
+      margin-bottom: 14px;
+    }
+
+    .brand{display:flex; gap:12px; align-items:flex-start;}
+    .logo{
+      width:46px;height:46px;border-radius:14px;
+      background: linear-gradient(135deg, var(--vert), var(--bleu-clair));
+      box-shadow: var(--shadow);
+      border:1px solid rgba(52,77,89,.10);
+      flex: 0 0 auto;
+    }
+    h1{margin:0;font-size:22px;letter-spacing:.2px}
+    .subtitle{
+      margin:6px 0 0;
+      color: rgba(52,77,89,.78);
+      max-width: 62ch;
+      font-size: 14.5px;
+    }
+
+    .top-actions{display:flex; gap:10px; flex-wrap:wrap; align-items:center;}
+    button{
+      border: 1px solid rgba(52,77,89,.18);
+      background: #fff;
+      color: var(--text);
+      padding: 10px 12px;
+      border-radius: 14px;
+      cursor: pointer;
+      font-weight: 800;
+      letter-spacing: .2px;
+      box-shadow: 0 6px 18px rgba(52,77,89,.08);
+      transition: transform .06s ease, border-color .2s ease, box-shadow .2s ease;
+    }
+    button:hover{transform: translateY(-1px); border-color: rgba(52,77,89,.28)}
+    button:active{transform: translateY(0px); box-shadow: 0 3px 10px rgba(52,77,89,.10)}
+    .btn-primary{
+      background: linear-gradient(135deg, rgba(168,193,161,.85), rgba(184,203,208,.85));
+      border-color: rgba(52,77,89,.14);
+    }
+    .btn-warn{
+      background: linear-gradient(135deg, rgba(212,154,137,.70), rgba(255,250,243,.95));
+      border-color: rgba(52,77,89,.12);
+    }
+
+    .notice{
+      background: rgba(255,255,255,.82);
+      border: 1px solid rgba(52,77,89,.14);
+      border-radius: var(--radius);
+      padding: 14px 14px;
+      box-shadow: var(--shadow);
+      margin: 10px 0 16px;
+    }
+    .notice strong{font-weight: 900}
+    .pill-row{display:flex; flex-wrap:wrap; gap:8px; margin-top:10px;}
+    .pill{
+      font-size:12.5px;
+      padding:6px 10px;
+      border-radius:999px;
+      border:1px solid rgba(52,77,89,.16);
+      background: rgba(255,255,255,.86);
+      color: rgba(52,77,89,.85);
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns: 1.1fr .9fr;
+      gap: 16px;
+      align-items:start;
+    }
+    @media (max-width: 940px){
+      .grid{grid-template-columns: 1fr;}
+    }
+
+    .card{
+      background: rgba(255,255,255,.90);
+      border: 1px solid rgba(52,77,89,.14);
+      border-radius: var(--radius);
+      padding: 16px;
+      box-shadow: var(--shadow);
+    }
+
+    .section-title{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      margin-bottom:10px;
+    }
+    .section-title h2{margin:0;font-size:16px;letter-spacing:.2px}
+    .badge{
+      font-size:12px;
+      padding:6px 10px;
+      border-radius:999px;
+      border:1px solid rgba(52,77,89,.16);
+      background: rgba(255,255,255,.92);
+      color: rgba(52,77,89,.78);
+      white-space:nowrap;
+    }
+    .badge.l1{border-color: rgba(168,193,161,.65)}
+    .badge.l2{border-color: rgba(184,203,208,.75)}
+
+    .small{
+      font-size: 12.8px;
+      color: rgba(52,77,89,.72);
+      margin-top: 8px;
+    }
+    .divider{height:1px;background: rgba(52,77,89,.12);margin: 14px 0;}
+    .row{display:flex; gap:10px; flex-wrap:wrap; align-items:center; margin-top: 12px;}
+
+    /* Form fields */
+    input[type="text"], textarea{
+      width:100%;
+      border-radius:14px;
+      border:1px solid rgba(52,77,89,.18);
+      padding:12px 12px;
+      background: rgba(255,255,255,.94);
+      color: var(--text);
+      font-size: 14.5px;
+      outline:none;
+      box-shadow: 0 4px 14px rgba(52,77,89,.06);
+    }
+    textarea{min-height: 110px; resize: vertical}
+    textarea:focus, input[type="text"]:focus{border-color: rgba(52,77,89,.32)}
+
+    /* Label row + help button */
+    .label-row{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      margin: 12px 0 8px;
+    }
+    .label-row .label{
+      font-weight: 900;
+    }
+    .help-btn{
+      font-size: 12.5px;
+      padding: 7px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(52,77,89,.18);
+      background: rgba(255,255,255,.92);
+      color: rgba(52,77,89,.86);
+      box-shadow: 0 4px 14px rgba(52,77,89,.06);
+      cursor: pointer;
+      font-weight: 800;
+      white-space:nowrap;
+    }
+    .help-btn:hover{border-color: rgba(52,77,89,.30); transform: translateY(-1px)}
+    .help-btn:active{transform: translateY(0px)}
+
+    /* Help panel */
+    .help-intro{
+      font-size: 13.5px;
+      color: rgba(52,77,89,.78);
+      margin: 0 0 10px;
+    }
+    details{
+      border: 1px solid rgba(52,77,89,.14);
+      border-radius: 14px;
+      padding: 10px 12px;
+      background: rgba(255,255,255,.78);
+      margin: 10px 0;
+    }
+    details summary{
+      cursor:pointer;
+      font-weight: 900;
+      list-style:none;
+      outline:none;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+    }
+    details summary::-webkit-details-marker{display:none}
+    .chev{
+      width: 10px; height: 10px;
+      border-right: 2px solid rgba(52,77,89,.55);
+      border-bottom: 2px solid rgba(52,77,89,.55);
+      transform: rotate(45deg);
+      transition: transform .15s ease;
+      flex: 0 0 auto;
+      margin-left: 6px;
+    }
+    details[open] .chev{transform: rotate(225deg)}
+    .help{
+      color: rgba(52,77,89,.86);
+      font-size: 14px;
+      margin-top: 10px;
+    }
+    .help ul{margin: 8px 0 0 18px}
+    .help li{margin: 6px 0}
+    .confusion{
+      margin-top: 10px;
+      border-left: 4px solid var(--terracotta);
+      background: rgba(212,154,137,.12);
+      border-radius: 10px;
+      padding: 10px 12px;
+      color: rgba(52,77,89,.88);
+    }
+
+    /* PRINT / PDF */
+    @media print{
+      body{background:#fff}
+      .wrap{max-width: 100%; margin:0; padding:0}
+      .top-actions, .notice, .small, details, .row .no-print, .help-btn{display:none !important}
+      .card{box-shadow:none; border: 1px solid #ddd; background:#fff}
+      textarea, input[type="text"]{border: 1px solid #ddd; box-shadow:none}
+      .grid{grid-template-columns: 1fr}
+      .badge{border: 1px solid #ddd}
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+
+    <!-- BANNIÈRE + BOUTONS -->
+    <header>
+      <div class="brand">
+        <div class="logo" aria-hidden="true"></div>
+        <div>
+          <h1>Cap Clair — Semaine 3 • Rangement intérieur</h1>
+          <p class="subtitle">
+            On range ce qui se mélange (pensées, émotions, croyances, environnement…), puis on affine (intuition vs attentes).
+            Aucun envoi, tout reste sur ton appareil.
+          </p>
+        </div>
+      </div>
+
+      <div class="top-actions">
+        <button class="btn-primary" id="btnPrint" type="button">Télécharger en PDF</button>
+        <button id="btnSaveLocal" type="button" title="Sauvegarde sur TON appareil (localStorage)">Sauvegarder</button>
+        <button id="btnClearLocal" class="btn-warn" type="button" title="Effacer les réponses sauvegardées sur TON appareil">Effacer</button>
+      </div>
+    </header>
+
+    <!-- BANDEAU CONFIDENTIALITÉ -->
+    <div class="notice">
+      <strong>Confidentialité :</strong> ce formulaire <strong>n’envoie rien</strong> (pas d’enregistrement sur GitHub, pas de base de données).
+      Si tu cliques sur <strong>Sauvegarder</strong>, ça garde une copie <strong>uniquement sur ton appareil</strong>.
+      <div class="pill-row">
+        <div class="pill">✓ privé</div>
+        <div class="pill">✓ export PDF</div>
+        <div class="pill">✓ deux niveaux</div>
+        <div class="pill">✓ simple & concret</div>
+      </div>
+    </div>
+
+    <div class="grid">
+
+      <!-- GAUCHE : FORMULAIRE -->
+      <main class="card" id="formCard">
+        <div class="section-title">
+          <h2>Niveau 1 — Tri principal</h2>
+          <div class="badge l1">On remet de l’ordre</div>
+        </div>
+
+        <p class="small">
+          Règle du jeu : tu ranges, tu n’analyses pas à fond. Tu poses ce qui est là, dans la bonne case.
+          Et si tu hésites : tu peux écrire dans 2 cases.
+        </p>
+
+        <div class="label-row" style="margin-top:0">
+          <div class="label">Titre (facultatif)</div>
+        </div>
+        <input id="title" type="text" placeholder="Ex : Mon choix pro / Ma relation / Mon projet…" />
+
+        <div class="divider"></div>
+
+        <div class="label-row">
+          <div class="label">🟦 Pensées (mental)</div>
+          <button class="help-btn" type="button" data-help="help-thoughts">Besoin d’aide ?</button>
+        </div>
+        <textarea id="thoughts" placeholder="Scénarios, ‘et si’, comparaisons, raisonnements…"></textarea>
+
+        <div class="label-row">
+          <div class="label">🟨 Émotions</div>
+          <button class="help-btn" type="button" data-help="help-emotions">Besoin d’aide ?</button>
+        </div>
+        <textarea id="emotions" placeholder="Peur, tristesse, joie, colère, enthousiasme…"></textarea>
+
+        <div class="label-row">
+          <div class="label">🟩 Ressenti corporel</div>
+          <button class="help-btn" type="button" data-help="help-body">Besoin d’aide ?</button>
+        </div>
+        <textarea id="body" placeholder="Tension/détente, souffle, ventre noué, lourdeur/légèreté…"></textarea>
+
+        <div class="label-row">
+          <div class="label">🟫 Croyances</div>
+          <button class="help-btn" type="button" data-help="help-beliefs">Besoin d’aide ?</button>
+        </div>
+        <textarea id="beliefs" placeholder="‘Je dois…’, ‘il faut…’, ‘je ne peux pas…’, ‘je ne suis pas…’"></textarea>
+
+        <div class="label-row">
+          <div class="label">🟥 Environnement</div>
+          <button class="help-btn" type="button" data-help="help-environment">Besoin d’aide ?</button>
+        </div>
+        <textarea id="environment" placeholder="Faits concrets : timing, énergie, fatigue, finances, contraintes…"></textarea>
+
+        <div class="divider"></div>
+
+        <div class="section-title" style="margin-top:4px">
+          <h2>Niveau 2 — Ajustement fin</h2>
+          <div class="badge l2">clarifier</div>
+        </div>
+
+        <p class="small">
+          Ici, on évite la confusion fréquente : <strong>intuition</strong> vs <strong>pression / attentes</strong>.
+        </p>
+
+        <div class="label-row">
+          <div class="label">🟪 Intuition</div>
+          <button class="help-btn" type="button" data-help="help-intuition">Besoin d’aide ?</button>
+        </div>
+        <textarea id="intuition" placeholder="Calme, simple, évident… sans besoin de justifier."></textarea>
+
+        <div class="label-row">
+          <div class="label">🟧 Attentes extérieures / désirs conditionnés</div>
+          <button class="help-btn" type="button" data-help="help-external">Besoin d’aide ?</button>
+        </div>
+        <textarea id="external" placeholder="Regard des autres, normes, ‘ce serait plus raisonnable’, ‘à ma place…’"></textarea>
+
+        <div class="divider"></div>
+
+        <div class="section-title">
+          <h2>Ce qui se dégage</h2>
+          <div class="badge" style="border-color: rgba(212,154,137,.55)">sans forcer</div>
+        </div>
+
+        <div class="label-row">
+          <div class="label">Qu’est-ce qui devient plus clair, là, maintenant ?</div>
+        </div>
+        <textarea id="clarity" placeholder="Une évidence, une direction, une phrase simple…"></textarea>
+
+        <div class="row">
+          <button class="btn-primary" type="button" id="btnPrint2">Télécharger en PDF</button>
+          <button type="button" id="btnSaveLocal2">Sauvegarder</button>
+          <button class="btn-warn no-print" type="button" id="btnCopy">Copier tout (texte)</button>
+        </div>
+
+        <p class="small">
+          Phrase-clé : <em>La clarté ne vient pas quand tu as toutes les réponses. Elle vient quand chaque chose est à sa place.</em>
+        </p>
+      </main>
+
+      <!-- DROITE : AIDE -->
+      <aside class="card" id="helpPanel">
+        <div class="section-title">
+          <h2>Astuces de classement</h2>
+          <div class="badge">claire & simple</div>
+        </div>
+
+        <p class="help-intro">
+          Ouvre seulement ce dont tu as besoin. Si tu hésites : <strong>fort/insistant</strong> = souvent mental/peur/attentes.
+          <strong>calme</strong> = souvent intuition.
+        </p>
+
+        <details id="help-thoughts" open>
+          <summary>🟦 Pensées (mental) <span class="chev" aria-hidden="true"></span></summary>
+          <div class="help">
+            <div><strong>C’est :</strong> la voix dans la tête. Ça analyse, ça anticipe, ça calcule, ça compare.</div>
+            <div><strong>Exemples :</strong></div>
+            <ul>
+              <li>“Et si je regrette ?”</li>
+              <li>“Je devrais attendre d’être sûre.”</li>
+              <li>“Ce n’est pas raisonnable.”</li>
+              <li>“J’ai peur de faire le mauvais choix.”</li>
+            </ul>
+            <div><strong>À retenir :</strong> les pensées parlent beaucoup, mais elles ne décident pas.</div>
+            <div class="confusion"><strong>Astuce :</strong> si ça argumente / compare / anticipe → c’est ici.</div>
+          </div>
+        </details>
+
+        <details id="help-emotions">
+          <summary>🟨 Émotions <span class="chev" aria-hidden="true"></span></summary>
+          <div class="help">
+            <div><strong>C’est :</strong> ce que tu ressens émotionnellement. Ça monte, ça descend, ça change.</div>
+            <div><strong>Exemples :</strong></div>
+            <ul>
+              <li>Peur, tristesse, colère, joie, enthousiasme, découragement…</li>
+              <li>“Ça me fait quelque chose.”</li>
+            </ul>
+            <div><strong>À retenir :</strong> une émotion indique comment tu te sens, pas ce que tu dois faire.</div>
+            <div class="confusion"><strong>Astuce :</strong> si ça parle d’un ressenti émotionnel, c’est ici.</div>
+          </div>
+        </details>
+
+        <details id="help-body">
+          <summary>🟩 Ressenti corporel <span class="chev" aria-hidden="true"></span></summary>
+          <div class="help">
+            <div><strong>C’est :</strong> ce que le corps exprime, sans mots.</div>
+            <div><strong>Exemples :</strong></div>
+            <ul>
+              <li>Ventre noué</li>
+              <li>Poitrine serrée</li>
+              <li>Respiration courte / souffle plus libre</li>
+              <li>Lourdeur / légèreté</li>
+            </ul>
+            <div><strong>À retenir :</strong> le corps ne raisonne pas. Il réagit à l’alignement ou au désalignement.</div>
+            <div class="confusion"><strong>Astuce :</strong> si tu peux le localiser dans le corps → c’est ici.</div>
+          </div>
+        </details>
+
+        <details id="help-beliefs">
+          <summary>🟫 Croyances <span class="chev" aria-hidden="true"></span></summary>
+          <div class="help">
+            <div><strong>C’est :</strong> des phrases apprises, souvent anciennes, parfois inconscientes. Elles orientent tes choix sans prévenir.</div>
+            <div><strong>Exemples :</strong></div>
+            <ul>
+              <li>“Je dois être sûre à 100 %.”</li>
+              <li>“Je ne suis pas capable.”</li>
+              <li>“Ce n’est pas le bon moment.”</li>
+              <li>“Je n’ai pas le droit de me tromper.”</li>
+            </ul>
+            <div><strong>À retenir :</strong> une croyance n’est pas une vérité, même si elle paraît logique.</div>
+            <div class="confusion"><strong>Astuce :</strong> si ça commence par “je dois / il faut / je ne peux pas” → ici.</div>
+          </div>
+        </details>
+
+        <details id="help-environment">
+          <summary>🟥 Environnement <span class="chev" aria-hidden="true"></span></summary>
+          <div class="help">
+            <div><strong>C’est :</strong> les faits concrets, ici et maintenant. Ce qui est objectivement présent dans ta vie.</div>
+            <div><strong>Exemples :</strong></div>
+            <ul>
+              <li>Fatigue, charge mentale, finances</li>
+              <li>Responsabilités, timing, contexte pro/perso</li>
+              <li>Ressources disponibles (ou non)</li>
+            </ul>
+            <div><strong>À retenir :</strong> l’environnement n’est ni une excuse ni un frein. C’est un cadre réel.</div>
+            <div class="confusion"><strong>Astuce :</strong> si c’est “vérifiable” dans la réalité → c’est ici.</div>
+          </div>
+        </details>
+
+        <details id="help-intuition" open>
+          <summary>🟪 Intuition <span class="chev" aria-hidden="true"></span></summary>
+          <div class="help">
+            <div><strong>C’est :</strong> calme. Simple. Silencieux. Ça ne cherche pas à convaincre.</div>
+            <div><strong>Exemples :</strong></div>
+            <ul>
+              <li>“Je le sens.”</li>
+              <li>“C’est évident, mais j’hésite.”</li>
+              <li>Une sensation de justesse tranquille.</li>
+            </ul>
+            <div><strong>À retenir :</strong> l’intuition n’explique pas, elle sait.</div>
+            <div class="confusion"><strong>Repère :</strong> si ça apaise → souvent intuition. Si ça presse/insiste → pas elle.</div>
+          </div>
+        </details>
+
+        <details id="help-external" open>
+          <summary>🟧 Attentes extérieures / désirs conditionnés <span class="chev" aria-hidden="true"></span></summary>
+          <div class="help">
+            <div><strong>C’est :</strong> ce que tu crois devoir vouloir. Le poids du regard des autres, des normes, des “il faudrait”.</div>
+            <div><strong>Exemples :</strong></div>
+            <ul>
+              <li>“Ça se fait.” / “Ce serait plus raisonnable.”</li>
+              <li>“Ils vont penser quoi ?”</li>
+              <li>“À ma place, on ferait comme ça.”</li>
+            </ul>
+            <div><strong>À retenir :</strong> ce n’est pas forcément faux… mais ce n’est pas forcément toi.</div>
+            <div class="confusion"><strong>Astuce :</strong> si ça implique l’avis des autres → souvent ici.</div>
+          </div>
+        </details>
+
+        <div class="divider"></div>
+        <p class="small">
+          Tu n’es pas là pour “bien faire”. Tu es là pour voir clair.
+        </p>
+      </aside>
+    </div>
+  </div>
+
+  <script>
+    // PRIVACY: no network calls, no form submit
+    const fields = [
+      "title","thoughts","emotions","body","beliefs","environment","intuition","external","clarity"
+    ];
+    const $ = (id)=>document.getElementById(id);
+
+    function getData(){
+      const data = {};
+      fields.forEach(f => data[f] = ($(f).value || "").trim());
+      data._savedAt = new Date().toISOString();
+      return data;
+    }
+
+    function setData(data){
+      fields.forEach(f => { if($(f)) $(f).value = data?.[f] ?? ""; });
+    }
+
+    function saveLocal(){
+      const data = getData();
+      localStorage.setItem("capclair_s3_rangement", JSON.stringify(data));
+      toast("Sauvegardé sur ton appareil ✅");
+    }
+
+    function clearLocal(){
+      localStorage.removeItem("capclair_s3_rangement");
+      localStorage.removeItem("capclair_s3_rangement_autosave");
+      fields.forEach(f => $(f).value = "");
+      toast("Effacé sur cet appareil 🧹");
+    }
+
+    function downloadPDF(){
+      window.print(); // user chooses "Save as PDF"
+    }
+
+    function copyAll(){
+      const d = getData();
+      const labelMap = {
+        title: "Titre",
+        thoughts:"Pensées (mental)",
+        emotions:"Émotions",
+        body:"Ressenti corporel",
+        beliefs:"Croyances",
+        environment:"Environnement",
+        intuition:"Intuition",
+        external:"Attentes extérieures / désirs conditionnés",
+        clarity:"Ce qui devient plus clair (sans forcer)"
+      };
+
+      const out = Object.keys(labelMap)
+        .map(k => `— ${labelMap[k]} —\n${(d[k]||"")}\n`)
+        .join("\n");
+
+      navigator.clipboard.writeText(out)
+        .then(()=>toast("Copié ✅"))
+        .catch(()=>toast("Copie impossible (navigateur)"));
+    }
+
+    // Tiny toast
+    let toastTimer = null;
+    function toast(msg){
+      let el = document.getElementById("toast");
+      if(!el){
+        el = document.createElement("div");
+        el.id = "toast";
+        el.style.position = "fixed";
+        el.style.left = "50%";
+        el.style.bottom = "18px";
+        el.style.transform = "translateX(-50%)";
+        el.style.padding = "10px 12px";
+        el.style.borderRadius = "14px";
+        el.style.background = "rgba(52,77,89,.92)";
+        el.style.color = "#FFFAF3";
+        el.style.fontWeight = "900";
+        el.style.boxShadow = "0 10px 25px rgba(0,0,0,.20)";
+        el.style.zIndex = "9999";
+        el.style.maxWidth = "92vw";
+        el.style.textAlign = "center";
+        document.body.appendChild(el);
+      }
+      el.textContent = msg;
+      el.style.opacity = "1";
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(()=>{ el.style.opacity = "0"; }, 1600);
+    }
+
+    // Autosave (private, local)
+    let autosaveTimer = null;
+    function scheduleAutosave(){
+      clearTimeout(autosaveTimer);
+      autosaveTimer = setTimeout(()=> {
+        const data = getData();
+        localStorage.setItem("capclair_s3_rangement_autosave", JSON.stringify(data));
+      }, 800);
+    }
+
+    // Open help detail and scroll it into view
+    function openHelp(helpId){
+      const panel = document.getElementById(helpId);
+      const helpPanel = document.getElementById("helpPanel");
+      if(!panel || !helpPanel) return;
+
+      panel.open = true;
+
+      // Smooth scroll to the help panel first (mobile friendly)
+      helpPanel.scrollIntoView({ behavior: "smooth", block: "start" });
+
+      // Then scroll to the detail itself (small delay for smoother UX)
+      setTimeout(() => {
+        panel.scrollIntoView({ behavior: "smooth", block: "start" });
+        panel.classList.add("flash");
+        setTimeout(()=>panel.classList.remove("flash"), 700);
+      }, 280);
+    }
+
+    // Little flash effect (optional)
+    const styleFlash = document.createElement("style");
+    styleFlash.textContent = `
+      details.flash { outline: 3px solid rgba(168,193,161,.55); }
+    `;
+    document.head.appendChild(styleFlash);
+
+    document.addEventListener("DOMContentLoaded", ()=>{
+      // Load explicit save first, else autosave fallback
+      const saved = localStorage.getItem("capclair_s3_rangement");
+      const auto = localStorage.getItem("capclair_s3_rangement_autosave");
+      if(saved){ try{ setData(JSON.parse(saved)); }catch(e){} }
+      else if(auto){ try{ setData(JSON.parse(auto)); }catch(e){} }
+
+      // Autosave on input (private, local)
+      fields.forEach(f => $(f).addEventListener("input", scheduleAutosave));
+
+      // Top buttons
+      $("btnPrint").addEventListener("click", downloadPDF);
+      $("btnPrint2").addEventListener("click", downloadPDF);
+      $("btnSaveLocal").addEventListener("click", saveLocal);
+      $("btnSaveLocal2").addEventListener("click", saveLocal);
+      $("btnClearLocal").addEventListener("click", clearLocal);
+      $("btnCopy").addEventListener("click", copyAll);
+
+      // Help buttons next to labels
+      document.querySelectorAll(".help-btn[data-help]").forEach(btn=>{
+        btn.addEventListener("click", ()=>{
+          const id = btn.getAttribute("data-help");
+          openHelp(id);
+        });
+      });
+    });
+  </script>
+</body>
+</html>
